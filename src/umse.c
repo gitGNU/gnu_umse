@@ -248,7 +248,6 @@ int
 							}
 							else
 							{
-								popup ( "Listen" , s_tmp );
 								if ( !input_plugin_play ( output , input_plugins , s_tmp , wdescription ) )
 								{
 									popup ( "Error!" , "Can't read this file!\n" );
