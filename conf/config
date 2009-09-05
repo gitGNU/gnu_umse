@@ -1,0 +1,5 @@
+default*back: default
+default*fore: white
+titlebar*back: blue
+titlebar*fore: white
+

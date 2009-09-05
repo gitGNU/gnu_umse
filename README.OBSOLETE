@@ -1,0 +1,42 @@
+
+
+         UMSE
+Unix Multi-Soundchip Emulator
+
+Unix Multi-Soundchip Emulator is a text-mode music player for GNU/Linux and
+other UNIX like operation system. It can read many "oldskool" music formats.
+Officially, UMSE supports these following formats:
+mod, s3m, xm, it, 669, amf, ams, dbm, dmf, dsm,
+far, mdl, med, mtm, okt, ptm, stm, ult, umx, mt2,
+psm, mdz, s3z, xmz, itz, mdr, s3r, xmr, itr, mdgz,
+s3gz, xmgz, itgz, sndh, sc68, snd, sid.
+But all these formats need a lot of dependencies (see plugins/README)
+
+
+Installation:
+=============
+
+Before compiling, take a look at Makefile.in and
+modify it according to your configuration/environment.
+
+Start compiling:
+
+   $ make umse ( Without plugins )
+   $ make ( With plugins, please RTFM before 'plugins/README' )
+
+
+Install: (root needed)
+
+   $ make install
+
+
+NOTE: on some BSD systems you need to explicitly use
+      GNU Make with "gmake"
+
+
+ Required dependencies:
+ ----------------------
+
+  ¤ ncurses
+  ¤ pthread
+  ¤ libao

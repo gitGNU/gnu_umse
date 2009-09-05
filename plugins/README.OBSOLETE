@@ -1,0 +1,38 @@
+
+
+   UMSE - Official Plugins
+Unix Multi-Soundchip Emulator
+
+
+
+
+Installation:
+=============
+
+Start compiling:
+
+   $ make
+
+
+Install: (no root needed)
+
+   $ make install
+
+
+NOTE: on some BSD systems you need to explicitly use
+      GNU Make with "gmake"
+
+
+ Required dependencies:
+ ----------------------
+
+  ¤ plugin-sc68
+    ¤ libsc68
+    ¤ libfile68
+    ¤ libunice68
+  
+  ¤ plugin-mod
+    ¤ modplug
+
+  ¤ plugin-tinysid
+    ¤ Nothing (built-in)
