@@ -31,6 +31,9 @@
 	void input_plugin_init ( pinput_t input );
 	uint is_supported ( pinput_t input , char *ext );
 	byte input_plugin_play ( poutput_t output , pinput_t input , char * filename , WINDOW *description );
+	byte input_plugin_playing ( pinput_t input );
+	void input_plugin_ntrack ( pinput_t input );
+	void input_plugin_ptrack ( pinput_t input );
 	void input_plugin_write ( void * ptrdata );
 	void input_plugin_stop ( poutput_t output , pinput_t input );
 	void input_plugin_destroy ( pinput_t input );

@@ -27,6 +27,7 @@
 	WINDOW * static_window_create ( uint width , uint height , uint x , uint y  , const char * text , byte t_align , int t_color , byte boxwin );
 	WINDOW * static_window_create_child ( WINDOW * parent , uint width , uint height , uint x , uint y  , const char * text , byte t_align , int t_color , byte boxwin );
 	void static_update ( WINDOW * swin );
+	void static_set ( WINDOW *swin , char *str );
 	void static_redraw ( WINDOW *swin );
 	void static_window_destroy ( WINDOW * swin );
 	

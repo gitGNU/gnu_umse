@@ -86,14 +86,26 @@ unsigned char
 }
 
 unsigned int
- libsc68_next_track ( void )
+ libsc68_next_track ( data )
+ 	pinput_data_t data;
 {
+	if ( data->ctrack != data->ntracks )
+	{
+		data->ctrack++;
+		sc68_play ( sc68 , data->ctrack , 1 );
+	}
 	return 0;	
 }
 
 unsigned int
- libsc68_prev_track ( void )
+ libsc68_prev_track ( data )
+ 	pinput_data_t data;
 {
+	if ( data->ctrack != 1 )
+	{
+		data->ctrack--;
+		sc68_play ( sc68 , data->ctrack , 1 );
+	}
 	return 0;	
 }
 

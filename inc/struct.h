@@ -98,8 +98,8 @@
 		unsigned int (*init)(pinput_data_t data,char*filename);
 		unsigned char (*play)(pinput_data_t data);
 		unsigned int (*stop)(void);
-		unsigned int (*next_track)(void);
-		unsigned int (*prev_track)(void);
+		unsigned int (*next_track)( pinput_data_t data );
+		unsigned int (*prev_track)( pinput_data_t data );
 		unsigned int (*close)(void);
 	}input_func_t , *pinput_func_t;
 	
@@ -115,6 +115,7 @@
 		byte plugin_load;
 		poutput_t ptr;
 		pthread_t thread;
+		pthread_mutex_t tlock;
 		WINDOW *desc;
 	}input_t , *pinput_t;
 	

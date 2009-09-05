@@ -50,8 +50,8 @@
 		uint (*init)( pinput_data_t data , char * filename);
 		unsigned char (*play)( pinput_data_t data );
 		uint (*stop)(void);
-		uint (*next_track)(void);
-		uint (*prev_track)(void);
+		uint (*next_track)( pinput_data_t data );
+		uint (*prev_track)( pinput_data_t data );
 		uint (*close)(void);
 	}input_func_t , *pinput_func_t;
 

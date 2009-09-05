@@ -143,6 +143,16 @@ WINDOW *
 	return win;
 }
 
+
+void
+ static_set ( swin , str )
+ 	WINDOW *swin;
+	char *str;
+{
+	werase ( swin );
+	mvwprintw ( swin , 0 , 0 , str );
+}
+
 void
  static_update ( swin )
 	WINDOW *swin;

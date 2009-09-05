@@ -285,10 +285,21 @@ int
 					break;
 				}
 				break;
+
+			case KEY_LEFT:
+				if ( input_plugin_playing ( input_plugins ) )
+					input_plugin_ptrack ( input_plugins );
+				break;
+
+			case KEY_RIGHT:
+				if ( input_plugin_playing ( input_plugins ) )
+					input_plugin_ntrack ( input_plugins );
+				break;
 			
 			case 's':
 			case 'S':
 				input_plugin_stop ( output , input_plugins );
+				static_set ( wdescription , "Stop" );
 				break;
 			
 			case 'q':

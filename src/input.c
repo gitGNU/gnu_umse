@@ -158,6 +158,7 @@ byte
 	output_initialize ( output , input->data.bits , input->data.rate , input->data.channels , input->data.format );
 	input->ptr = output;
 	input->desc = description;
+	pthread_mutex_init( &input->tlock , NULL );
 	pthread_create ( &input->thread , NULL , ( void * ) input_plugin_write , ( void * )input );
 	input->plugin_running = 1;
 	return 1;
@@ -169,17 +170,44 @@ void
  	void *ptrdata;
 {
 	pinput_t input = ( pinput_t ) ptrdata;
+	pthread_mutex_lock ( &input->tlock );
+	werase ( input->desc );
+	mvwprintw ( input->desc , 0 , 0 , "[%d/%d] %s - %s" , input->data.ctrack , input->data.ntracks , input->data.author , input->data.title );
+	//wrefresh ( input->desc );
+	pthread_mutex_unlock ( &input->tlock );
 	while ( input->plugin_running )
 	{
 		if ( input->funcs->play( &input->data ) )
 			output_write ( input->ptr , input->data.buffer , input->data.buffer_size );
 		else
 			break;
-		/* werase ( input->desc );
-		mvwprintw ( input->desc , 0 , 0 , "[%d/%d] %s - %s" , input->data.ctrack , input->data.ntracks , input->data.author , input->data.title );
-		wrefresh ( input->desc ); */
 	}
 	return;
+}
+
+byte
+ input_plugin_playing ( input )
+ 	pinput_t input;
+{ return input->plugin_running; }
+
+void
+ input_plugin_ntrack ( input )
+ 	pinput_t input;
+{
+	input->funcs->next_track ( &input->data );
+	werase ( input->desc );
+	mvwprintw ( input->desc , 0 , 0 , "[%d/%d] %s - %s" , input->data.ctrack , input->data.ntracks , input->data.author , input->data.title );
+
+}
+
+void
+ input_plugin_ptrack ( input )
+ 	pinput_t input;
+{
+	input->funcs->prev_track ( &input->data );
+	werase ( input->desc );
+	mvwprintw ( input->desc , 0 , 0 , "[%d/%d] %s - %s" , input->data.ctrack , input->data.ntracks , input->data.author , input->data.title );
+
 }
 
 void
@@ -190,6 +218,7 @@ void
 	if ( input->plugin_running )
 	{
 		input->funcs->stop();
+		pthread_mutex_destroy ( &input->tlock );
 		input->plugin_running = 0;
 		pthread_join ( input->thread , NULL );
 		output_close ( output );
