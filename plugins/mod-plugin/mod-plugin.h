@@ -1,6 +1,6 @@
 /*
 
-    sc68-plugin.h
+    mod-plugin.h
     Copyright (c) 2009 KERNEL_ERROR <k3rn3l.3rr0r(at)gmail[dot]com>
     =============================================================
     
@@ -19,26 +19,14 @@
     You should have received a copy of the GNU General Public License
     along with UMSE.  If not, see <http://www.gnu.org/licenses/>.
 
-
-    libsc68 - (c) Benjamin Gerard - http://sc68.atari.org/
-
 */
 
-
-#ifndef _SC68_PLUGIN
-#	define _SC68_PLUGIN
-
+#ifndef _MOD_PLUGIN
+#	define _MOD_PLUGIN
+	
 	#include <stdio.h>
 	#include <stdlib.h>
-	#include <string.h>
-	
-	#include <sc68/sc68.h>
-	#include <sc68/istream68.h>
-	#include <sc68/msg68.h>
-	#include <sc68/init68.h>
-	#include <sc68/option68.h>
-	#include <sc68/url68.h>
-	
+	#include <modplug.h>
 	#include "global-plugin.h"
 
 #endif

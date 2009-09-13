@@ -250,7 +250,7 @@ int
 							{
 								if ( !input_plugin_play ( output , input_plugins , s_tmp , wdescription ) )
 								{
-									popup ( "Error!" , "Can't read this file!\n" );
+									popup ( "Error!" , s_tmp );
 									input_plugin_stop ( output , input_plugins );
 								}
 							}

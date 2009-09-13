@@ -138,3 +138,4 @@ input_func_t input_functions = {
 
 
 char input_extensions[] = "sndh;sc68;snd;";
+

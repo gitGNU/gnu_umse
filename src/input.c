@@ -131,9 +131,12 @@ byte
 	memcpy ( tmp , input->ext[p] , ptr-input->ext[p] );
 	tmp[ptr-input->ext[p]] = 0;
 	snprintf ( file , sizeof ( file ) , "%s/%s" , input->plugin_directory , tmp );
-	input->plugin_handle = dlopen ( file , RTLD_NOW );
+	input->plugin_handle = dlopen ( file , RTLD_LAZY );
 	if ( input->plugin_handle == NULL )
+	{
+		popup ( "olol" , file );
 		return 0;
+	}
 	input->funcs = dlsym ( input->plugin_handle , "input_functions" );
 	return 1;
 }
