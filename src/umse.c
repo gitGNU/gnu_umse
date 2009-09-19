@@ -91,10 +91,6 @@ int
 	
 	listview_add_item ( browse , "None" , A_NORMAL );
 	
-	/*listview_add_item ( default_browse , "None" );
-	listview_add_item ( default_browse , "None" );
-	listview_add_item ( default_browse , "None" );*/
-	
 	listview_add_item ( playlist , "None" , A_NORMAL );
 	listview_add_item ( default_playlist , "None" , A_BOLD );
 	
@@ -250,7 +246,7 @@ int
 							{
 								if ( !input_plugin_play ( output , input_plugins , s_tmp , wdescription ) )
 								{
-									popup ( "Error!" , s_tmp );
+									popup ( "Error!" , "Can't read this file!" );
 									input_plugin_stop ( output , input_plugins );
 								}
 							}
@@ -288,12 +284,12 @@ int
 
 			case KEY_LEFT:
 				if ( input_plugin_playing ( input_plugins ) )
-					input_plugin_ptrack ( input_plugins );
+					input_plugin_ptrack ( input_plugins , wdescription );
 				break;
 
 			case KEY_RIGHT:
 				if ( input_plugin_playing ( input_plugins ) )
-					input_plugin_ntrack ( input_plugins );
+					input_plugin_ntrack ( input_plugins , wdescription );
 				break;
 			
 			case 's':

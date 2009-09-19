@@ -331,12 +331,12 @@ void
 {
 	if ( st )
 	{
-		wbkgd ( list->items[list->highlight_item] , COLOR_PAIR ( COLORS_HIGHLISTVIEW ) );
+		wbkgd ( list->items[list->highlight_item] , COLOR_PAIR ( COLORS_HIGHLISTVIEW ) | list->attr[list->sitem+list->highlight_item] );
 		wnoutrefresh ( list->items[list->highlight_item] );
 	}
 	else
 	{
-		wbkgd ( list->items[list->highlight_item] , COLOR_PAIR ( COLORS_DEFAULT ) );
+		wbkgd ( list->items[list->highlight_item] , COLOR_PAIR ( COLORS_DEFAULT ) | list->attr[list->sitem+list->highlight_item] );
 		wnoutrefresh ( list->items[list->highlight_item] );
 	}
 }

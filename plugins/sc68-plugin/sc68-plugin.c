@@ -57,10 +57,6 @@ unsigned int
 		return 6;
 	}
 
-	data->bits = 16;
-	data->rate = 44100;
-	data->channels = 2;
-	data->format = FMT_LITTLE_ENDIAN;
 	data->buffer = buffer;
 	data->buffer_size = sizeof ( buffer );
 

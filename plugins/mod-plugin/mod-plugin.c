@@ -55,23 +55,14 @@ unsigned int
 	free ( buffer );
 	
 	data->buffer = abuffer;
-	
-	ModPlug_GetSettings ( &settings );
-	settings.mFlags = MODPLUG_ENABLE_OVERSAMPLING | MODPLUG_ENABLE_NOISE_REDUCTION;
-	settings.mChannels = 2;
-	settings.mBits = 16;
-	settings.mFrequency = 44100;
-	settings.mResamplingMode = MODPLUG_RESAMPLE_FIR;
-	ModPlug_SetSettings ( &settings );
 
-	data->bits = 16;
-	data->channels = 2;
-	data->rate = 44100;
-	data->format = FMT_LITTLE_ENDIAN;
 	data->buffer_size = sizeof ( abuffer );
 
 	data->ctrack = 1;
 	data->ntracks = 1; /* No multiple track in this format. */
+
+	snprintf ( data->author , sizeof ( data->author ) , ""  );
+	snprintf ( data->title , sizeof ( data->title ) , "" );
 
 	return 1;
 }

@@ -80,10 +80,6 @@
 
 	typedef struct input_data
 	{
-		int bits;
-		int rate;
-		int channels;
-		int format;
 		char *buffer;
 		uint buffer_size;
 		char author[128];
@@ -115,8 +111,6 @@
 		byte plugin_load;
 		poutput_t ptr;
 		pthread_t thread;
-		pthread_mutex_t tlock;
-		WINDOW *desc;
 	}input_t , *pinput_t;
 	
 #endif

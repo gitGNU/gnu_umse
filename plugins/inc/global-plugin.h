@@ -1,6 +1,6 @@
 /*
 
-    input.h
+    global.h
     Copyright (c) 2009 KERNEL_ERROR <k3rn3l.3rr0r(at)gmail[dot]com>
     =============================================================
     
@@ -21,23 +21,35 @@
 
 */
 
-#ifndef _INPUT_H
-#	define _INPUT_H
+#ifndef _GLOBAL_H
+#	define _GLOBAL_H
 	
-	#define		FMT_LITTLE_ENDIAN	AO_FMT_LITTLE
-	#define		FMT_BIG_ENDIAN		AO_FMT_BIG
+	#define		FMT_LITTLE_ENDIAN	1
+	#define		FMT_BIG_ENDIAN		2
 
-	pinput_t input_plugin_create ( char *path );
-	void input_plugin_init ( pinput_t input );
-	uint is_supported ( pinput_t input , char *ext );
-	byte input_plugin_play ( poutput_t output , pinput_t input , char * filename , WINDOW *description );
-	byte input_plugin_playing ( pinput_t input );
-	void input_plugin_ntrack ( pinput_t input , WINDOW * description );
-	void input_plugin_ptrack ( pinput_t input , WINDOW * description );
-	void input_plugin_write ( void * ptrdata );
-	void input_plugin_stop ( poutput_t output , pinput_t input );
-	void input_plugin_destroy ( pinput_t input );
+	typedef unsigned int uint;
 
+	typedef struct input_data
+	{
+		char *buffer;
+		uint buffer_size;
+		char author[128];
+		char title[128];
+		uint lenght;
+		uint ntracks;
+		uint ctrack;
+	}input_data_t, *pinput_data_t;
+
+
+	typedef struct input_func
+	{
+		uint (*init)( pinput_data_t data , char * filename);
+		unsigned char (*play)( pinput_data_t data );
+		uint (*stop)(void);
+		uint (*next_track)( pinput_data_t data );
+		uint (*prev_track)( pinput_data_t data );
+		uint (*close)(void);
+	}input_func_t , *pinput_func_t;
 
 
 #endif

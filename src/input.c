@@ -133,10 +133,7 @@ byte
 	snprintf ( file , sizeof ( file ) , "%s/%s" , input->plugin_directory , tmp );
 	input->plugin_handle = dlopen ( file , RTLD_LAZY );
 	if ( input->plugin_handle == NULL )
-	{
-		popup ( "olol" , file );
 		return 0;
-	}
 	input->funcs = dlsym ( input->plugin_handle , "input_functions" );
 	return 1;
 }
@@ -150,20 +147,24 @@ byte
 {
 	char *fext = NULL;
 	if ( input->plugin_load )
-		input_plugin_stop (output , input );
+		input_plugin_stop ( output , input );
 	fext = strchr ( filename , '.' )+1;
 	if ( input_plugin_load ( input , fext ) )
 		input->plugin_load = 1;
 	else
 		return 0;
+	output_initialize ( output , 16 , 44100 , 2 , AO_FMT_LITTLE );
 	if ( input->funcs->init ( &input->data , filename ) > 1 )
 		return 0;
-	output_initialize ( output , input->data.bits , input->data.rate , input->data.channels , input->data.format );
 	input->ptr = output;
-	input->desc = description;
-	pthread_mutex_init( &input->tlock , NULL );
 	pthread_create ( &input->thread , NULL , ( void * ) input_plugin_write , ( void * )input );
 	input->plugin_running = 1;
+
+	werase ( description );
+	if ( strcmp ( input->data.author , "" ) )
+		mvwprintw ( description , 0 , 0 , "[%d/%d] %s - %s" , input->data.ctrack , input->data.ntracks , input->data.author , input->data.title );
+	else
+		mvwprintw ( description , 0 , 0 , "[%d/%d] Unknown" , input->data.ctrack , input->data.ntracks );
 	return 1;
 	
 }
@@ -173,11 +174,6 @@ void
  	void *ptrdata;
 {
 	pinput_t input = ( pinput_t ) ptrdata;
-	pthread_mutex_lock ( &input->tlock );
-	werase ( input->desc );
-	mvwprintw ( input->desc , 0 , 0 , "[%d/%d] %s - %s" , input->data.ctrack , input->data.ntracks , input->data.author , input->data.title );
-	//wrefresh ( input->desc );
-	pthread_mutex_unlock ( &input->tlock );
 	while ( input->plugin_running )
 	{
 		if ( input->funcs->play( &input->data ) )
@@ -194,22 +190,24 @@ byte
 { return input->plugin_running; }
 
 void
- input_plugin_ntrack ( input )
+ input_plugin_ntrack ( input , description )
  	pinput_t input;
+	WINDOW *description;
 {
 	input->funcs->next_track ( &input->data );
-	werase ( input->desc );
-	mvwprintw ( input->desc , 0 , 0 , "[%d/%d] %s - %s" , input->data.ctrack , input->data.ntracks , input->data.author , input->data.title );
+	werase ( description );
+	mvwprintw ( description , 0 , 0 , "[%d/%d] %s - %s" , input->data.ctrack , input->data.ntracks , input->data.author , input->data.title );
 
 }
 
 void
- input_plugin_ptrack ( input )
+ input_plugin_ptrack ( input , description )
  	pinput_t input;
+	WINDOW *description;
 {
 	input->funcs->prev_track ( &input->data );
-	werase ( input->desc );
-	mvwprintw ( input->desc , 0 , 0 , "[%d/%d] %s - %s" , input->data.ctrack , input->data.ntracks , input->data.author , input->data.title );
+	werase ( description );
+	mvwprintw ( description , 0 , 0 , "[%d/%d] %s - %s" , input->data.ctrack , input->data.ntracks , input->data.author , input->data.title );
 
 }
 
@@ -221,7 +219,6 @@ void
 	if ( input->plugin_running )
 	{
 		input->funcs->stop();
-		pthread_mutex_destroy ( &input->tlock );
 		input->plugin_running = 0;
 		pthread_join ( input->thread , NULL );
 		output_close ( output );
