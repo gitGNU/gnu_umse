@@ -32,6 +32,7 @@
 	void listview_clean ( plistview_t list );
 	
 	void listview_show ( plistview_t list );
+	void listview_refresh ( plistview_t list );
 	
 	void listview_next_item ( plistview_t list );
 	void listview_prev_item ( plistview_t list );

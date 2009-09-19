@@ -151,8 +151,27 @@ void
 		wbkgd ( list->items[i] , COLOR_PAIR ( COLORS_LISTVIEW ) | list->attr[list->sitem+i] );
 		wrefresh ( list->items[i] );
 	}
-	wbkgd ( list->items[list->highlight_item] , COLOR_PAIR ( COLORS_HIGHLISTVIEW ) | list->attr[list->sitem+i] );
-	redrawwin ( list->window );
+	wbkgd ( list->items[0] , COLOR_PAIR ( COLORS_HIGHLISTVIEW ) | list->attr[0] );
+	wnoutrefresh ( list->items[0] );
+	wrefresh ( list->window );
+}
+
+void
+ listview_refresh ( list )
+ 	plistview_t list;
+{	
+	uint i;
+	for ( i = 0 ; i < list->nwin ; i++ )
+	{
+		werase ( list->items[i] );
+		if ( list->show_num )
+			wprintw ( list->items[i] , "%d: %s" , list->sitem+i+1 , list->s_items[list->sitem+i] );
+		else
+			wprintw ( list->items[i] , " %s" , list->s_items[list->sitem+i] );
+		wbkgd ( list->items[i] , COLOR_PAIR ( COLORS_LISTVIEW ) | list->attr[list->sitem+i] );
+		wrefresh ( list->items[i] );
+	}
+	wbkgd ( list->items[list->highlight_item] , COLOR_PAIR ( COLORS_HIGHLISTVIEW ) | list->attr[list->highlight_item] );
 	wrefresh ( list->window );
 }
 

@@ -131,7 +131,7 @@ int
 						browse_set ( input_plugins , default_browse , curr_path );
 						default_browse->highlight_item = browse->highlight_item;
 						default_browse->sitem = browse->sitem;
-						listview_show ( default_browse );
+						listview_refresh ( default_browse );
 						if ( focused )
 						{
 							listview_focus ( default_browse , false );
@@ -148,7 +148,7 @@ int
 						browse_set ( input_plugins , browse , curr_path );
 						browse->sitem = default_browse->sitem;
 						browse->highlight_item = default_browse->highlight_item;
-						listview_show ( browse );
+						listview_refresh ( browse );
 						break;
 					
 					case WORKSPACE_PLAYLIST:
