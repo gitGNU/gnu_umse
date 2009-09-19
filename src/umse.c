@@ -276,6 +276,14 @@ int
 								else
 									popup ( "Error!" , "Can't read this directory.\n" );
 							}
+							else
+							{
+								if ( !input_plugin_play ( output , input_plugins , s_tmp , wdescription ) )
+								{
+									popup ( "Error!" , "Can't read this file!" );
+									input_plugin_stop ( output , input_plugins );
+								}
+							}
 						}
 					}
 					break;

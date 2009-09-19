@@ -153,9 +153,10 @@ byte
 		input->plugin_load = 1;
 	else
 		return 0;
-	output_initialize ( output , 16 , 44100 , 2 , AO_FMT_LITTLE );
+	//output_initialize ( output , 16 , 44100 , 2 , AO_FMT_LITTLE );
 	if ( input->funcs->init ( &input->data , filename ) > 1 )
 		return 0;
+	output_initialize ( output , 16 , 44100 , 2 , AO_FMT_LITTLE );
 	input->ptr = output;
 	pthread_create ( &input->thread , NULL , ( void * ) input_plugin_write , ( void * )input );
 	input->plugin_running = 1;
