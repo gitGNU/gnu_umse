@@ -14,7 +14,7 @@ endif(NOT CMAKE_BUILD_TYPE)
 if(CMAKE_BUILD_TYPE MATCHES "Debug")
 	set(CMAKE_VERBOSE_MAKEFILE 1)
 endif(CMAKE_BUILD_TYPE MATCHES "Debug")
-include_directories(inc)
+include_directories(inc /usr/include/libmodplug)
 
 
 
@@ -31,8 +31,6 @@ add_library(
 )
 target_link_libraries(
 	sc68-plugin
-	ao
-	curl
 	sc68
 	unice68
 	file68
@@ -40,6 +38,30 @@ target_link_libraries(
 install(
 	TARGETS
 	sc68-plugin
+	DESTINATION
+	"~/.umse/plugins"
+)
+
+
+
+
+#====================================================
+#                   MOD-Plugin 
+#====================================================
+
+project(mod-plugin)
+add_library(
+	mod-plugin
+	SHARED
+	mod-plugin/mod-plugin.c
+)
+target_link_libraries(
+	mod-plugin
+	modplug
+)
+install(
+	TARGETS
+	mod-plugin
 	DESTINATION
 	"~/.umse/plugins"
 )
